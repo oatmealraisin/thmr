@@ -1,0 +1,11 @@
+TODO:
+	Theming
+		Theme from background and settings, exported automatically to resources
+		Theme can change based on time of day, also randomly, or based on hooks
+	Programs
+		Better GTK theme
+		Better web browser (firefox?)
+		Better file manager
+		Music player w/ Gplay/pandora/spotify
+	Configuration
+		Stow implementation
