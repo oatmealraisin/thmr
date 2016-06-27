@@ -16,7 +16,7 @@ Xresources=$XDG_CONFIG_HOME/x/.Xresources
 # GetOpts - option handling
 # # #
 
-while getopts 'c:d:hvx:' opt; do
+while getopts 'c:d:hlvx:' opt; do
 	case $opt in
 		c)
 			[[ -e $OPTARG ]] \
@@ -44,6 +44,10 @@ while getopts 'c:d:hvx:' opt; do
   -h                Show this help page
   -v                Print verbose output
   -x                Specify an alternate .Xresources' >&2
+			exit 0
+			;;
+		l)
+			echo `ls $themeDir`
 			exit 0
 			;;
 		v)
@@ -82,7 +86,6 @@ source $themeFile
 
 # TODO: Work with current Xresources, append changes
 # TODO: Fill out ALL Xresources defaults
-# TODO: Change git repo name to thmr
 
 [[ ${opt_verbose} -eq 1 ]] \
 	&& echo "Writing to ${Xresources}"
@@ -106,11 +109,12 @@ if [[ -n $font_name ]]; then
 fi
 
 echo \
-'*dynamicColors   : '"$dynamicColors"'
-*scrollBar       : '"$scrollBar"'
-*termName        : '"$TERM"'
-*borderWidth     : '"$borderwidth"'
-*allowBoldFonts  : '"$boldFonts"'
+'*dynamicColors    : '"$dynamicColors"'
+*scrollBar         : '"$scrollBar"'
+*termName          : '"$TERM"'
+*borderWidth       : '"$borderwidth"'
+*allowBoldFonts    : '"$boldFonts"'
+*selectToClipboard : '"$clipboard"'
 ' >> $Xresources
 
 echo "*color0 :      $black"       >> $Xresources
@@ -138,9 +142,10 @@ echo "*cursorColor : $curs"        >> $Xresources
 
 xrdb -merge $Xresources
 
-[[ -x $wpcall ]] \
-	|| echo "$wpcall not installed." \
-	&& exit
+# TODO: Does not work because of flags
+#[[ -x $wpcall ]] \
+#	|| echo "$wpcall not installed." \
+#	&& exit
 
 [[ -e $wallpaper ]] \
 	&& $wpcall $wallpaper \
